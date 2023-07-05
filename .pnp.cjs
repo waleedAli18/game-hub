@@ -45,6 +45,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["framer-motion", "virtual:0e2a8b48c1575749fb93ea7c0b1bccc524e4d4cde24fd0c096f1a16843ecd2877eda27c29aa9581963a5b5c961ae658ffcdeec7ced30edb65a0c934500c44c9e#npm:10.12.18"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:0e2a8b48c1575749fb93ea7c0b1bccc524e4d4cde24fd0c096f1a16843ecd2877eda27c29aa9581963a5b5c961ae658ffcdeec7ced30edb65a0c934500c44c9e#npm:18.2.0"],\
+            ["react-icons", "virtual:0e2a8b48c1575749fb93ea7c0b1bccc524e4d4cde24fd0c096f1a16843ecd2877eda27c29aa9581963a5b5c961ae658ffcdeec7ced30edb65a0c934500c44c9e#npm:4.10.1"],\
             ["react-scripts", "virtual:0e2a8b48c1575749fb93ea7c0b1bccc524e4d4cde24fd0c096f1a16843ecd2877eda27c29aa9581963a5b5c961ae658ffcdeec7ced30edb65a0c934500c44c9e#npm:5.0.1"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"],\
             ["web-vitals", "npm:2.1.4"]\
@@ -12223,6 +12224,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["framer-motion", "virtual:0e2a8b48c1575749fb93ea7c0b1bccc524e4d4cde24fd0c096f1a16843ecd2877eda27c29aa9581963a5b5c961ae658ffcdeec7ced30edb65a0c934500c44c9e#npm:10.12.18"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:0e2a8b48c1575749fb93ea7c0b1bccc524e4d4cde24fd0c096f1a16843ecd2877eda27c29aa9581963a5b5c961ae658ffcdeec7ced30edb65a0c934500c44c9e#npm:18.2.0"],\
+            ["react-icons", "virtual:0e2a8b48c1575749fb93ea7c0b1bccc524e4d4cde24fd0c096f1a16843ecd2877eda27c29aa9581963a5b5c961ae658ffcdeec7ced30edb65a0c934500c44c9e#npm:4.10.1"],\
             ["react-scripts", "virtual:0e2a8b48c1575749fb93ea7c0b1bccc524e4d4cde24fd0c096f1a16843ecd2877eda27c29aa9581963a5b5c961ae658ffcdeec7ced30edb65a0c934500c44c9e#npm:5.0.1"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"],\
             ["web-vitals", "npm:2.1.4"]\
@@ -17851,6 +17853,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-clientside-effect", "virtual:f419b7aba4d6b2ad35924941f9a62b5fe2ab0a62cf000d49c13ac482d27d942cee5bc1df8fa8cdd6fae22fd1c333b6ec0b2892e66c62e01007b85db657f35698#npm:1.2.6"],\
             ["use-callback-ref", "virtual:f419b7aba4d6b2ad35924941f9a62b5fe2ab0a62cf000d49c13ac482d27d942cee5bc1df8fa8cdd6fae22fd1c333b6ec0b2892e66c62e01007b85db657f35698#npm:1.3.0"],\
             ["use-sidecar", "virtual:f419b7aba4d6b2ad35924941f9a62b5fe2ab0a62cf000d49c13ac482d27d942cee5bc1df8fa8cdd6fae22fd1c333b6ec0b2892e66c62e01007b85db657f35698#npm:1.1.2"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-icons", [\
+        ["npm:4.10.1", {\
+          "packageLocation": "./.yarn/cache/react-icons-npm-4.10.1-74abe904b6-b6c8d4fe48.zip/node_modules/react-icons/",\
+          "packageDependencies": [\
+            ["react-icons", "npm:4.10.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:0e2a8b48c1575749fb93ea7c0b1bccc524e4d4cde24fd0c096f1a16843ecd2877eda27c29aa9581963a5b5c961ae658ffcdeec7ced30edb65a0c934500c44c9e#npm:4.10.1", {\
+          "packageLocation": "./.yarn/__virtual__/react-icons-virtual-28bd87ce54/0/cache/react-icons-npm-4.10.1-74abe904b6-b6c8d4fe48.zip/node_modules/react-icons/",\
+          "packageDependencies": [\
+            ["react-icons", "virtual:0e2a8b48c1575749fb93ea7c0b1bccc524e4d4cde24fd0c096f1a16843ecd2877eda27c29aa9581963a5b5c961ae658ffcdeec7ced30edb65a0c934500c44c9e#npm:4.10.1"],\
+            ["@types/react", "npm:18.2.14"],\
+            ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@types/react",\
