@@ -26,10 +26,11 @@ const useGames = () => {
   const toast = useToast();
   const [games, setGames] = useState<Games[]>([]);
   const [error, setError] = useState("");
+  const [isloading, setLoading] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
-
+    setLoading(true);
     apiClient
       .get<FetchGamesResponse>("/games", { signal: controller.signal })
       .then((res) => {
@@ -41,6 +42,7 @@ const useGames = () => {
           variant: "subtle",
           status: "success",
         });
+        setLoading(false);
       })
       .catch((err) => {
         if (err instanceof CanceledError) return;
@@ -52,10 +54,11 @@ const useGames = () => {
           variant: "subtle",
           status: "error",
         });
+        setLoading(false);
       });
     return () => controller.abort();
   }, []);
-  return { games, error };
+  return { games, error, isloading };
 };
 
 export default useGames;
