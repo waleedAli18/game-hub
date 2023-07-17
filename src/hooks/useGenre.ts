@@ -12,7 +12,7 @@ export interface Platform {
 export interface Genre {
   id: number;
   name: string;
-  background_image: string;
+  image_background: string;
   parent_platforms: { platform: Platform }[];
   metacritic: number;
 }
@@ -36,7 +36,7 @@ const useGenre = () => {
       .then((res) => {
         setGenres(res.data.results);
         toast({
-          title: "Games Fetched Successfully!",
+          title: "Genres Fetched Successfully!",
           position: "top-right",
           isClosable: true,
           variant: "subtle",
