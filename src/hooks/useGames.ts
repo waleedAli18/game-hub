@@ -2,6 +2,7 @@ import { useToast } from "@chakra-ui/react";
 import { CanceledError } from "axios";
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
+import { Genre } from "./useGenre";
 
 export interface Platform {
   id: number;
@@ -22,7 +23,7 @@ interface FetchGamesResponse {
   results: Games[];
 }
 
-const useGames = () => {
+const useGames = (selectedGenre: Genre | null) => {
   const toast = useToast();
   const [games, setGames] = useState<Games[]>([]);
   const [error, setError] = useState("");
@@ -32,7 +33,10 @@ const useGames = () => {
     const controller = new AbortController();
     setLoading(true);
     apiClient
-      .get<FetchGamesResponse>("/games", { signal: controller.signal })
+      .get<FetchGamesResponse>("/games", {
+        params: { genres: selectedGenre?.id, page_size: 50 },
+        signal: controller.signal,
+      })
       .then((res) => {
         setGames(res.data.results);
         toast({
@@ -57,7 +61,7 @@ const useGames = () => {
         setLoading(false);
       });
     return () => controller.abort();
-  }, []);
+  }, [selectedGenre]);
   return { games, error, isloading };
 };
 
