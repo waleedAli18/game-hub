@@ -39,6 +39,7 @@ const useGames = (gameQuery: GameQuery) => {
           page_size: 50,
           platforms: gameQuery?.platform?.id,
           ordering: gameQuery?.sortOrder,
+          search: gameQuery.searchText,
         },
         signal: controller.signal,
       })
