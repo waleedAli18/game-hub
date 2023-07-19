@@ -1,4 +1,4 @@
-import { SimpleGrid, Wrap } from "@chakra-ui/react";
+import { SimpleGrid, Text, Wrap } from "@chakra-ui/react";
 import { GameQuery } from "../App";
 import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
@@ -14,12 +14,15 @@ const GameGrid = ({ gameQuery }: Props) => {
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   if (error) {
-    return <>No Games Found!</>;
+    return (
+      <>
+        <Text>{error}</Text>
+      </>
+    );
   }
 
   return (
     <>
-      <Wrap></Wrap>
       <SimpleGrid
         paddingY="15px"
         columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
