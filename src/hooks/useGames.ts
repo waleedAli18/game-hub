@@ -3,7 +3,6 @@ import { CanceledError } from "axios";
 import { useEffect, useState } from "react";
 import { GameQuery } from "../App";
 import apiClient from "../services/api-client";
-import { Genre } from "./useGenre";
 
 export interface Platform {
   id: number;
