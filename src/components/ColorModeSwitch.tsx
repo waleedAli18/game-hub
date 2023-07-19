@@ -23,7 +23,9 @@ const ColorModeSwitch = () => {
             });
           }}
         />
-        <Text>{colorMode === "dark" ? "Light" : "Dark"} Mode</Text>
+        <Text whiteSpace="nowrap">
+          {colorMode === "dark" ? "Light" : "Dark"} Mode
+        </Text>
       </HStack>
     </>
   );
