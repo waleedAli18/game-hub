@@ -1,8 +1,5 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
-import React from "react";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
-import { Platform } from "../hooks/useGames";
-import usePlatforms from "../hooks/usePlatforms";
 
 interface Props {
   onSelectSortOrder: (sortOrder: string) => void;
@@ -10,8 +7,6 @@ interface Props {
 }
 
 const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
-  //   const { data, error } = usePlatforms();
-
   const sortOrders = [
     { value: "", label: "Relevance" },
     { value: "-added", label: "Date Added" },
@@ -33,7 +28,7 @@ const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
             as={Button}
             rightIcon={isOpen ? <BsChevronUp /> : <BsChevronDown />}
           >
-            Order by: {currentSortOrder?.label || "Relevance"}
+            Order by: {currentSortOrder?.label ?? "Relevance"}
           </MenuButton>
           {sortOrders && (
             <MenuList>
