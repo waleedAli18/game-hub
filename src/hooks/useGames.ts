@@ -1,6 +1,7 @@
 import { useToast } from "@chakra-ui/react";
 import { CanceledError } from "axios";
 import { useEffect, useState } from "react";
+import { GameQuery } from "../App";
 import apiClient from "../services/api-client";
 import { Genre } from "./useGenre";
 
@@ -23,10 +24,7 @@ interface FetchGamesResponse {
   results: Games[];
 }
 
-const useGames = (
-  selectedGenre: Genre | null,
-  selectedPlatform: Platform | null
-) => {
+const useGames = (gameQuery: GameQuery) => {
   const toast = useToast();
   const [games, setGames] = useState<Games[]>([]);
   const [error, setError] = useState("");
@@ -38,9 +36,9 @@ const useGames = (
     apiClient
       .get<FetchGamesResponse>("/games", {
         params: {
-          genres: selectedGenre?.id,
+          genres: gameQuery?.genre?.id,
           page_size: 50,
-          platforms: selectedPlatform?.id,
+          platforms: gameQuery?.platform?.id,
         },
         signal: controller.signal,
       })
@@ -68,7 +66,7 @@ const useGames = (
         setLoading(false);
       });
     return () => controller.abort();
-  }, [selectedGenre, selectedPlatform]);
+  }, [gameQuery]);
   return { games, error, isloading };
 };
 
