@@ -23,7 +23,10 @@ interface FetchGamesResponse {
   results: Games[];
 }
 
-const useGames = (selectedGenre: Genre | null) => {
+const useGames = (
+  selectedGenre: Genre | null,
+  selectedPlatform: Platform | null
+) => {
   const toast = useToast();
   const [games, setGames] = useState<Games[]>([]);
   const [error, setError] = useState("");
@@ -34,7 +37,11 @@ const useGames = (selectedGenre: Genre | null) => {
     setLoading(true);
     apiClient
       .get<FetchGamesResponse>("/games", {
-        params: { genres: selectedGenre?.id, page_size: 50 },
+        params: {
+          genres: selectedGenre?.id,
+          page_size: 50,
+          platforms: selectedPlatform?.id,
+        },
         signal: controller.signal,
       })
       .then((res) => {
@@ -61,7 +68,7 @@ const useGames = (selectedGenre: Genre | null) => {
         setLoading(false);
       });
     return () => controller.abort();
-  }, [selectedGenre]);
+  }, [selectedGenre, selectedPlatform]);
   return { games, error, isloading };
 };
 
