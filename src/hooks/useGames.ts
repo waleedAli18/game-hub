@@ -38,6 +38,7 @@ const useGames = (gameQuery: GameQuery) => {
           genres: gameQuery?.genre?.id,
           page_size: 50,
           platforms: gameQuery?.platform?.id,
+          ordering: gameQuery?.sortOrder,
         },
         signal: controller.signal,
       })
