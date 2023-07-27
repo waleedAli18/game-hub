@@ -5,6 +5,7 @@ import GameHeading from "./components/GameHeading";
 import GenreList from "./components/GenreList";
 import NavBar from "./components/NavBar";
 import PlatformSelector from "./components/PlatformSelector";
+import ScrollProgressBar from "./components/ScrollProgressBar";
 import SortSelector from "./components/SortSelector";
 import { Genre, Platform } from "./hooks/useGenre";
 
@@ -19,6 +20,7 @@ function App() {
   const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
   return (
     <>
+      <ScrollProgressBar />
       <Grid
         templateAreas={{
           base: `"nav" "main"`,

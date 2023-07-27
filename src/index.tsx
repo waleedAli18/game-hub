@@ -5,16 +5,25 @@ import "./index.css";
 import App from "./App";
 import theme from "./theme";
 import reportWebVitals from "./reportWebVitals";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <ChakraProvider theme={theme}>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <App />
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+
+        <App />
+
+        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+      </ChakraProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
