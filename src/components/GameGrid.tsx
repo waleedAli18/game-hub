@@ -10,16 +10,12 @@ interface Props {
 }
 
 const GameGrid = ({ gameQuery }: Props) => {
-  const { games, error, isloading } = useGames(gameQuery);
+  const { games, error, isLoading } = useGames(gameQuery);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   if (error) {
-    return (
-      <>
-        <Text>{error}</Text>
-      </>
-    );
-  } else if (games.length === 0 && !isloading && !error) {
+    return <>{/* <Text>{error}</Text> */}</>;
+  } else if (games.length === 0 && !isLoading && !error) {
     return (
       <>
         <Center h="50vh" color="#01a6de">
@@ -38,7 +34,7 @@ const GameGrid = ({ gameQuery }: Props) => {
         columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
         spacing={3}
       >
-        {isloading &&
+        {isLoading &&
           skeletons.map((skeleton) => (
             <GameCardContainer key={skeleton}>
               <GameCardSkeleton key={skeleton} />

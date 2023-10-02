@@ -1,6 +1,5 @@
 import { useToast } from "@chakra-ui/react";
-import { CanceledError } from "axios";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import apiClient from "../services/api-client";
 
 export interface Platform {
@@ -24,17 +23,18 @@ interface FetchGenresResponse {
 
 const useGenre = () => {
   const toast = useToast();
-  const [genres, setGenres] = useState<Genre[]>([]);
-  const [error, setError] = useState("");
-  const [isloading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const controller = new AbortController();
-    setLoading(true);
-    apiClient
-      .get<FetchGenresResponse>("/genres", { signal: controller.signal })
-      .then((res) => {
-        setGenres(res.data.results);
+  const {
+    data: genres,
+    error,
+    isLoading,
+  } = useQuery<Genre[], Error>(
+    ["genres"],
+    async () => {
+      const response = await apiClient.get<FetchGenresResponse>("/genres");
+      return response.data.results;
+    },
+    {
+      onSuccess: () => {
         toast({
           title: "Genres Fetched Successfully!",
           position: "top-right",
@@ -42,11 +42,8 @@ const useGenre = () => {
           variant: "subtle",
           status: "success",
         });
-        setLoading(false);
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
+      },
+      onError: (err) => {
         toast({
           title: err.message,
           position: "top-right",
@@ -54,11 +51,11 @@ const useGenre = () => {
           variant: "subtle",
           status: "error",
         });
-        setLoading(false);
-      });
-    return () => controller.abort();
-  }, []);
-  return { genres, error, isloading };
+      },
+    }
+  );
+
+  return { genres, error, isLoading };
 };
 
 export default useGenre;

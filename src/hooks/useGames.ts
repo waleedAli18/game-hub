@@ -1,6 +1,6 @@
 import { useToast } from "@chakra-ui/react";
+import { useQuery } from "@tanstack/react-query";
 import { CanceledError } from "axios";
-import { useEffect, useState } from "react";
 import { GameQuery } from "../App";
 import apiClient from "../services/api-client";
 
@@ -25,15 +25,15 @@ interface FetchGamesResponse {
 
 const useGames = (gameQuery: GameQuery) => {
   const toast = useToast();
-  const [games, setGames] = useState<Games[]>([]);
-  const [error, setError] = useState("");
-  const [isloading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const controller = new AbortController();
-    setLoading(true);
-    apiClient
-      .get<FetchGamesResponse>("/games", {
+  const {
+    data: games = [],
+    error,
+    isLoading,
+  } = useQuery<Games[], Error>(
+    ["games", gameQuery?.genre?.id], // unique query key based on gameQuery
+    async () => {
+      const response = await apiClient.get<FetchGamesResponse>("/games", {
         params: {
           genres: gameQuery?.genre?.id,
           page_size: 50,
@@ -41,34 +41,25 @@ const useGames = (gameQuery: GameQuery) => {
           ordering: gameQuery?.sortOrder,
           search: gameQuery.searchText,
         },
-        signal: controller.signal,
-      })
-      .then((res) => {
-        setGames(res.data.results);
-        toast({
-          title: "Games Fetched Successfully!",
-          position: "top-right",
-          isClosable: true,
-          variant: "subtle",
-          status: "success",
-        });
-        setLoading(false);
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        toast({
-          title: err.message,
-          position: "top-right",
-          isClosable: true,
-          variant: "subtle",
-          status: "error",
-        });
-        setLoading(false);
       });
-    return () => controller.abort();
-  }, [gameQuery]);
-  return { games, error, isloading };
+      return response.data.results;
+    },
+    {
+      onError: (err) => {
+        if (!(err instanceof CanceledError)) {
+          toast({
+            title: err.message,
+            position: "top-right",
+            isClosable: true,
+            variant: "subtle",
+            status: "error",
+          });
+        }
+      },
+    }
+  );
+
+  return { games, error, isLoading };
 };
 
 export default useGames;

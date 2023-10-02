@@ -1,6 +1,6 @@
 import { useToast } from "@chakra-ui/react";
+import { useQuery } from "@tanstack/react-query";
 import { CanceledError } from "axios";
-import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 
 interface Platforms {
@@ -16,43 +16,35 @@ interface FetchPlatform {
 
 const usePlatforms = () => {
   const toast = useToast();
-  const [data, setData] = useState<Platforms[]>([]);
-  const [error, setError] = useState("");
-  const [isloading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const controller = new AbortController();
-    setLoading(true);
-    apiClient
-      .get<FetchPlatform>("/platforms/lists/parents", {
-        signal: controller.signal,
-      })
-      .then((res) => {
-        setData(res?.data?.results);
-        toast({
-          title: "Platform Fetched Successfully!",
-          position: "top-right",
-          isClosable: true,
-          variant: "subtle",
-          status: "success",
-        });
-        setLoading(false);
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        toast({
-          title: err.message,
-          position: "top-right",
-          isClosable: true,
-          variant: "subtle",
-          status: "error",
-        });
-        setLoading(false);
-      });
-    return () => controller.abort();
-  }, []);
-  return { data, error, isloading };
+  const {
+    data = [],
+    error,
+    isLoading,
+  } = useQuery<Platforms[], Error>(
+    ["platforms"],
+    async () => {
+      const response = await apiClient.get<FetchPlatform>(
+        "/platforms/lists/parents"
+      );
+      return response.data.results;
+    },
+    {
+      onError: (err) => {
+        if (!(err instanceof CanceledError)) {
+          toast({
+            title: err.message,
+            position: "top-right",
+            isClosable: true,
+            variant: "subtle",
+            status: "error",
+          });
+        }
+      },
+    }
+  );
+
+  return { data, error, isLoading };
 };
 
 export default usePlatforms;
